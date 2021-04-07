@@ -24,6 +24,6 @@ Kyle: Front End JS/Fetch Requests<br>
 James: DB/Routes/Models/ImgurAPI<br>
 Kate: HTML Templates/CSS/Routes<br>
 
-## Wireframe:
+## Wireframe/User Interaction:
 
 https://www.figma.com/file/79Axjlk7Wlg42C35veN5m2/Untitled?node-id=3%3A8
