@@ -1,0 +1,22 @@
+[
+  {
+    "comment": "Cute cat",
+    "commenter_id": 3,
+    "pet_id": 2
+  },
+  {
+    "comment": "What do you call a large pile of cats? a meow-tain",
+    "commenter_id": 2,
+    "pet_id": 3
+  },
+  {
+    "comment": "I love tuxedos!",
+    "commenter_id": 3,
+    "pet_id": 1
+  },
+  {
+    "comment": "Meow",
+    "commenter_id": 1,
+    "pet_id": 4
+  }
+]
