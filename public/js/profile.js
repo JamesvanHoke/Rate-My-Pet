@@ -1,14 +1,15 @@
 const newFormHandler = async (event) => {
   event.preventDefault();
 
-  const name = document.querySelector('#pet-name').value.trim();
-  const description = document.querySelector('#pet-desc').value.trim();
-  const owner = document.querySelector('#pet-owner').value.trim();
+  const pet = document.querySelector('#pet_name').value.trim();
+  const description = document.querySelector('#pet_description').value.trim();
+  const owner = document.querySelector('#owner_name').value.trim();
+  const user = document.querySelector('#user').value.trim();
 
-  if (name && description) {
+  if (pet && description) {
     const response = await fetch(`/api/pets`, {
       method: 'POST',
-      body: JSON.stringify({ name, description, owner }),
+      body: JSON.stringify({ pet, description, owner }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -23,8 +24,8 @@ const newFormHandler = async (event) => {
 };
 
 document
-  .querySelector('.new-pet')
+  .querySelector('.new_pet')
   .addEventListener('submit', newFormHandler);
 
 document
-  .querySelector('.pet-name');
+  .querySelector('.pet_name');
