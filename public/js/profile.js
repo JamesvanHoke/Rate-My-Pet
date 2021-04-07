@@ -27,4 +27,4 @@ document
   .addEventListener('submit', newFormHandler);
 
 document
-  .querySelector('.project-list');
+  .querySelector('.pet-name');
