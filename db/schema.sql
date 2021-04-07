@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS  --Create a DB name
+DROP DATABASE IF EXISTS pet_rater_db;
 
-CREATE DATABASE  --Create a DB name
+CREATE DATABASE pet_rater_db;
