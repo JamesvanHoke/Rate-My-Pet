@@ -3,11 +3,12 @@ const newFormHandler = async (event) => {
 
   const name = document.querySelector('#pet-name').value.trim();
   const description = document.querySelector('#pet-desc').value.trim();
+  const owner = document.querySelector('#pet-owner').value.trim();
 
   if (name && description) {
     const response = await fetch(`/api/pets`, {
       method: 'POST',
-      body: JSON.stringify({ name, description }),
+      body: JSON.stringify({ name, description, owner }),
       headers: {
         'Content-Type': 'application/json',
       },
