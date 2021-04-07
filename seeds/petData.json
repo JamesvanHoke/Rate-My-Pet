@@ -1,0 +1,38 @@
+[
+    {
+      "pet_name": "Ruby",
+      "pet_description": "Ruby is a semi-feral Tuxedo cat with a love for the outdoors and bathing in the afternoon sun.",
+      "pet_image": "Test",
+      "owner_name": "James",
+      "owner_id": 1
+    },
+    {
+        "pet_name": "Jaz",
+        "pet_description": "Test Description",
+        "pet_image": "TestUrl",
+        "owner_name": "James",
+        "owner_id": 1
+    },
+    {
+        "pet_name": "Saff",
+        "pet_description": "TestDesc",
+        "pet_image": "Test",
+        "owner_name": "James",
+        "owner_id": 1
+    },
+    {
+        "pet_name": "spot",
+        "pet_description": "TestDesc",
+        "pet_image": "Test",
+        "owner_name": "John",
+        "owner_id": 2
+    },
+    {
+        "pet_name": "Sir-Barks-A-Lot",
+        "pet_description": "TestDesc",
+        "pet_image": "Test",
+        "owner_name": "Kate",
+        "owner_id": 3
+    }
+  ]
+  
