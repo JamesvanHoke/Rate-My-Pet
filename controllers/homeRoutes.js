@@ -2,26 +2,24 @@
 
 const router = require('express').Router();
 const { Pet, User, Comment } = require('../models');
-const withAuth = require('../utils/auth');
+// const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const petData = await Pet.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
+
+    // Most recently updated Pet
+    const recentlyRatedPet = await Pet.findAll({
+      order: [['updatedAt', 'DESC']],
+      limit: 1,
     });
 
     // Serialize data so the template can read it
-    const pets = petData.map((pet) => pet.get({ plain: true }));
+    const pets = recentlyRatedPet.map((pet) => pet.get({ plain: true }));
 
-    res.send(pets);
-
-    // Todo I should point at the landing page
+    
+    res.send(recentlyRatedPet);
+    
+    // Todo: I should point at the landing page. remove the res.send when I do
     // Pass serialized data and session flag into template
     // res.render('homepage', {
     //   projects,
@@ -55,7 +53,7 @@ router.get('/Pet/:id', async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
