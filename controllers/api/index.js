@@ -1,8 +1,11 @@
 const router = require('express').Router();
-// Require the routes you setup here
-// const exampleRoutes = require('./exampleRoutes');
+const commentRoutes = require('./commentRoutes');
+const petRoutes = require('./petRoutes');
+const userRoutes = require('./userRoutes');
 
 // Set up your path using the router middleware.
-// router.use('/example', exampleRoutes);
+router.use('/comments', commentRoutes);
+router.use('/pets', petRoutes);
+router.use('/users', userRoutes);
 
 module.exports = router;
