@@ -21,11 +21,11 @@ Comment.belongsTo(Pet, {
 });
 
 User.hasMany(Comment, {
-  foreignKey: 'comment_id',
+  foreignKey: 'commenter_id',
   onDelete: 'CASCADE',
 });
 
 Comment.belongsTo(User, {
-  foreignKey: 'comment_id',
+  foreignKey: 'commenter_id',
 });
 module.exports = { User, Pet, Comment };
