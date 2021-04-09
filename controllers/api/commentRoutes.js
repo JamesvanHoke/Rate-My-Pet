@@ -7,6 +7,13 @@ const withAuth = require('../../utils/auth');
 // Posts a comment.
 router.post('/:id', async (req, res) => {
   try {
+    /*
+    req.body must contain this
+    {
+        comment: "String"
+    }
+     */
+
     const newComment = await Comment.create({
       ...req.body,
       //Pulls the user id off the of the session ID
