@@ -1,5 +1,5 @@
 fetch('/api/pet', {
-  method: 'POST',
+  method: 'GET',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -22,7 +22,7 @@ const newPetHandler = async (event) => {
       console.error('Error:', error);
     });
 
-  fetch('/api/user', {
+  fetch('/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
