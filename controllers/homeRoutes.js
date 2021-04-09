@@ -1,11 +1,12 @@
-// TODO: Setup Res.render routes
-
 const router = require('express').Router();
-const { Pet, User } = require('../models');
+const { Pet, Comment } = require('../models');
 // const withAuth = require('../utils/auth');
 
 // this is the / route
 
+// TODO: ADD WITHAUTH TO ROUTES
+
+// Landing Page
 router.get('/', async (req, res) => {
   try {
     // Most recent updated/created Pet
@@ -27,6 +28,7 @@ router.get('/', async (req, res) => {
     // Put our pages data into an array
     const landingPageData = [recRatedPet, recCreatedPet];
 
+    // res.send(landingPageData);
     // Pass serialized data and session flag into template
     res.render('homepage', {
       landingPageData,
@@ -37,52 +39,103 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Gallery Page (allows users to go through the collection of pets that can be rated)
 router.get('/gallery/:id', async (req, res) => {
   try {
-    const petData = await Pet.findByPk(req.params.id, {});
-
+    // Gets the pet by ID
+    const petData = await Pet.findByPk(req.params.id);
     const soloPet = petData.get({ plain: true });
 
-    //TODO: Replace the res.send with the res.render when templates exist.
-
-    res.send(soloPet);
-    // res.render('solo', {
-    //   ...soloPet,
-    //   logged_in: req.session.logged_in,
-    // });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Use withAuth middleware to prevent access to route
-router.get('/profile', async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+    // Gets the pets comments
+    const commentData = await Comment.findAll({
+      where: {
+        pet_id: req.params.id,
+      },
     });
+    const soloPetComm = commentData.map((data) => data.toJSON());
 
-    const user = userData.get({ plain: true });
+    // Sets the info to be an array.
+    const galleryData = [soloPet, soloPetComm];
 
-    res.render('profile', {
-      ...user,
-      logged_in: true,
+    // sends the info
+    // res.send(galleryData);
+    res.render('solo', {
+      ...galleryData,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// Login Page
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/');
     return;
   }
-
-  res.render('login');
+  res.status(200).render('login');
 });
+
+// Top Ranking Page
+router.get('/ranking', async (req, res) => {
+  try {
+    const top5 = await Pet.findAll({
+      order: [['pet_score', 'DESC']],
+      limit: 5,
+    });
+
+    const top5get = top5.map((data) => data.get({ plain: true }));
+
+    // res.send(top5get);
+    res.render('rankings', {
+      top5get,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/upload', (req, res) => {
+  try {
+    res.render('uploads', {
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Our catchall that sends people to homepage.
+// router.get('*', (req, res) => {
+//   try {
+//     res.redirect('/');
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+// Unneeded? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// router.get('/profile', withAuth, async (req, res) => {
+//   try {
+//     // Find the logged in user based on the session ID
+//     const userData = await User.findByPk(req.session.user_id, {
+//       attributes: { exclude: ['password'] },
+//       include: [{ model: Pet }],
+//     });
+
+//     const user = userData.get({ plain: true });
+
+//     res.render('profile', {
+//       ...user,
+//       logged_in: true,
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;
