@@ -6,31 +6,30 @@ const { Pet, User, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
   try {
-    // Most recently updated Pet
+    // Most recent updated/created Pet
     const recentlyRatedPet = await Pet.findAll({
       order: [['updatedAt', 'DESC']],
       limit: 1,
     });
-
     const recentlyCreatedPet = await Pet.findAll({
       order: [['createdAt', 'DESC']],
       limit: 1,
     });
 
-    const landingPageData = [
-      recentlyRatedPet, recentlyCreatedPet
-    ]
     // Serialize data so the template can read it
-    const pets = recentlyRatedPet.map((pet) => pet.get({ plain: true }));
+    const recRatedPet = recentlyRatedPet.map((pet) => pet.get({ plain: true }));
+    const recCreatedPet = recentlyCreatedPet.map((pet) =>
+      pet.get({ plain: true })
+    );
 
-    res.send(landingPageData);
+    // Put our pages data into an array
+    const landingPageData = [recRatedPet, recCreatedPet];
 
-    // Todo: I should point at the landing page. remove the res.send when I do
     // Pass serialized data and session flag into template
-    // res.render('homepage', {
-    //   projects,
-    //   logged_in: req.session.logged_in,
-    // });
+    res.render('homepage', {
+      landingPageData,
+      logged_in: req.session.logged_in,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
