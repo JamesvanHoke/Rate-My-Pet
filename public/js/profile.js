@@ -8,7 +8,7 @@ const newPetHandler = async (event) => {
   const data = { username: 'example' };
 
   fetch('/api/pet', {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -23,7 +23,7 @@ const newPetHandler = async (event) => {
     });
 
   fetch('/api/users', {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
