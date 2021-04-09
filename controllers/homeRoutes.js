@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 const { Pet } = require('../models');
-// const withAuth = require('../utils/auth');
+const withAuth = require('../utils/auth');
 
 // this is the / route
 
@@ -16,7 +16,7 @@ router.get('*', (req, res) => {
 });
 
 // Landing Page
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     // Most recent updated/created Pet
     const recentlyRatedPet = await Pet.findAll({
@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
 });
 
 // Gallery Page (allows users to go through the collection of pets that can be rated)
-router.get('/gallery/:id', async (req, res) => {
+router.get('/gallery/:id', withAuth, async (req, res) => {
   try {
     const petData = await Pet.findByPk(req.params.id, {});
 
@@ -75,7 +75,7 @@ router.get('/login', (req, res) => {
 });
 
 // Top Ranking Page
-router.get('/ranking', async (req, res) => {
+router.get('/ranking', withAuth, async (req, res) => {
   try {
     const top5 = await Pet.findAll({
       order: [['pet_score', 'DESC']],
@@ -93,7 +93,7 @@ router.get('/ranking', async (req, res) => {
   }
 });
 
-router.get('/upload', (req, res) => {
+router.get('/upload', withAuth, (req, res) => {
   try {
     res.render('uploads', {
       logged_in: req.session.logged_in,
