@@ -1,52 +1,35 @@
 // TODO: Setup Res.render routes
 
 const router = require('express').Router();
-const { Pet, User, Comment } = require('../models');
-const withAuth = require('../utils/auth');
+const { Pet, User } = require('../models');
+// const withAuth = require('../utils/auth');
+
+// this is the / route
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const petData = await Pet.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
+    // Most recent updated/created Pet
+    const recentlyRatedPet = await Pet.findAll({
+      order: [['updatedAt', 'DESC']],
+      limit: 1,
+    });
+    const recentlyCreatedPet = await Pet.findAll({
+      order: [['createdAt', 'DESC']],
+      limit: 1,
     });
 
     // Serialize data so the template can read it
-    const pets = petData.map((pet) => pet.get({ plain: true }));
+    const recRatedPet = recentlyRatedPet.map((pet) => pet.get({ plain: true }));
+    const recCreatedPet = recentlyCreatedPet.map((pet) =>
+      pet.get({ plain: true })
+    );
 
-    res.send(pets);
+    // Put our pages data into an array
+    const landingPageData = [recRatedPet, recCreatedPet];
 
-    // Todo I should point at the landing page
     // Pass serialized data and session flag into template
-    // res.render('homepage', {
-    //   projects,
-    //   logged_in: req.session.logged_in,
-    // });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-router.get('/Pet/:id', async (req, res) => {
-  try {
-    const petData = await Pet.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
+    res.render('homepage', {
+      landingPageData,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -54,8 +37,26 @@ router.get('/Pet/:id', async (req, res) => {
   }
 });
 
+router.get('/gallery/:id', async (req, res) => {
+  try {
+    const petData = await Pet.findByPk(req.params.id, {});
+
+    const soloPet = petData.get({ plain: true });
+
+    //TODO: Replace the res.send with the res.render when templates exist.
+
+    res.send(soloPet);
+    // res.render('solo', {
+    //   ...soloPet,
+    //   logged_in: req.session.logged_in,
+    // });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
