@@ -98,6 +98,7 @@ router.get('/ranking', async (req, res) => {
   }
 });
 
+// UploadPage
 router.get('/upload', (req, res) => {
   try {
     res.render('uploads', {
