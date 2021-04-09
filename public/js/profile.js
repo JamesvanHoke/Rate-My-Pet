@@ -4,8 +4,39 @@ const newPetHandler = async (event) => {
   const pet = document.querySelector('#pet_name').value.trim();
   const description = document.querySelector('#pet_description').value.trim();
   const owner = document.querySelector('#owner_name').value.trim();
-  const user = document.querySelector('#user').value.trim();
-  console.log(pet, description, owner);
+
+  const data = { username: 'example' };
+
+  fetch('/api/pet', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  fetch('/api/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
   if (pet && description && owner) {
     const response = await fetch(`/api/pets`, {
       method: 'POST',
