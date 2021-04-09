@@ -1,8 +1,10 @@
 // TODO: Setup Res.render routes
 
 const router = require('express').Router();
-const { Pet, User, Comment } = require('../models');
+const { Pet, User } = require('../models');
 // const withAuth = require('../utils/auth');
+
+// this is the / route
 
 router.get('/', async (req, res) => {
   try {
@@ -35,23 +37,19 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/Pet/:id', async (req, res) => {
+router.get('/gallery/:id', async (req, res) => {
   try {
-    const petData = await Pet.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+    const petData = await Pet.findByPk(req.params.id, {});
 
-    const project = projectData.get({ plain: true });
+    const soloPet = petData.get({ plain: true });
 
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in,
-    });
+    //TODO: Replace the res.send with the res.render when templates exist.
+
+    res.send(soloPet);
+    // res.render('solo', {
+    //   ...soloPet,
+    //   logged_in: req.session.logged_in,
+    // });
   } catch (err) {
     res.status(500).json(err);
   }
