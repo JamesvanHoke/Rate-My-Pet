@@ -1,22 +1,13 @@
-// TODO: Setup Res.render routes
-
 const router = require('express').Router();
-const { Pet } = require('../models');
-const withAuth = require('../utils/auth');
+const { Pet, Comment } = require('../models');
+// const withAuth = require('../utils/auth');
 
 // this is the / route
 
-// Our catchall that sends people to homepage.
-router.get('*', (req, res) => {
-  try {
-    res.redirect('/');
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// TODO: ADD WITHAUTH TO ROUTES
 
 // Landing Page
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     // Most recent updated/created Pet
     const recentlyRatedPet = await Pet.findAll({
@@ -37,6 +28,7 @@ router.get('/', withAuth, async (req, res) => {
     // Put our pages data into an array
     const landingPageData = [recRatedPet, recCreatedPet];
 
+    // res.send(landingPageData);
     // Pass serialized data and session flag into template
     res.render('homepage', {
       landingPageData,
@@ -48,14 +40,27 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // Gallery Page (allows users to go through the collection of pets that can be rated)
-router.get('/gallery/:id', withAuth, async (req, res) => {
+router.get('/gallery/:id', async (req, res) => {
   try {
-    const petData = await Pet.findByPk(req.params.id, {});
-
+    // Gets the pet by ID
+    const petData = await Pet.findByPk(req.params.id);
     const soloPet = petData.get({ plain: true });
 
+    // Gets the pets comments
+    const commentData = await Comment.findAll({
+      where: {
+        pet_id: req.params.id,
+      },
+    });
+    const soloPetComm = commentData.map((data) => data.toJSON());
+
+    // Sets the info to be an array.
+    const galleryData = [soloPet, soloPetComm];
+
+    // sends the info
+    // res.send(galleryData);
     res.render('solo', {
-      ...soloPet,
+      ...galleryData,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -67,15 +72,14 @@ router.get('/gallery/:id', withAuth, async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/');
     return;
   }
-
   res.status(200).render('login');
 });
 
 // Top Ranking Page
-router.get('/ranking', withAuth, async (req, res) => {
+router.get('/ranking', async (req, res) => {
   try {
     const top5 = await Pet.findAll({
       order: [['pet_score', 'DESC']],
@@ -84,6 +88,7 @@ router.get('/ranking', withAuth, async (req, res) => {
 
     const top5get = top5.map((data) => data.get({ plain: true }));
 
+    // res.send(top5get);
     res.render('rankings', {
       top5get,
       logged_in: req.session.logged_in,
@@ -93,7 +98,7 @@ router.get('/ranking', withAuth, async (req, res) => {
   }
 });
 
-router.get('/upload', withAuth, (req, res) => {
+router.get('/upload', (req, res) => {
   try {
     res.render('uploads', {
       logged_in: req.session.logged_in,
@@ -102,6 +107,15 @@ router.get('/upload', withAuth, (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// Our catchall that sends people to homepage.
+// router.get('*', (req, res) => {
+//   try {
+//     res.redirect('/');
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 // Unneeded? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
