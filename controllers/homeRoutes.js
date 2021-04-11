@@ -26,13 +26,9 @@ router.get('/', async (req, res) => {
       pet.get({ plain: true })
     );
 
-    // Put our pages data into an array
-    const landingPageData = [recRatedPet, recCreatedPet];
-
-    // res.send(landingPageData);
     // Pass serialized data and session flag into template
     res.render('homepage', {
-      landingPageData,
+      recRatedPet, recCreatedPet,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -55,13 +51,10 @@ router.get('/gallery/:id', async (req, res) => {
     });
     const soloPetComm = commentData.map((data) => data.toJSON());
 
-    // Sets the info to be an array.
-    const galleryData = [soloPet, soloPetComm];
-
     // sends the info
     // res.send(galleryData);
     res.render('solo', {
-      ...galleryData,
+      soloPet, soloPetComm,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -73,7 +66,7 @@ router.get('/gallery/:id', async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/');
+    res.redirect('/profile');
     return;
   }
   res.status(200).render('login');
