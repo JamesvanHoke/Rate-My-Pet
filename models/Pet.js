@@ -26,9 +26,9 @@ Pet.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    pet_score:{
+    pet_score: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
     },
     owner_id: {
       type: DataTypes.INTEGER,

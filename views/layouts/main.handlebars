@@ -12,104 +12,96 @@
 
 <body>
 
-  
-    
-      
-      <nav>
-        <section class="hero is-primary is-medium">
-  <!-- Hero head: will stick at the top -->
-  <div class="hero-head">
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
-          </a>
-          <span class="navbar-burger" data-target="navbarMenuHeroA">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-        <div id="navbarMenuHeroA" class="navbar-menu">
-          <div class="navbar-end">
-            <a class="navbar-item is-active">
-              Home
-            </a>
-            <a class="navbar-item">
-              Rankings
-            </a>
-            <a class="navbar-item">
-              Profile
-            </a>
-            <span class="navbar-item">
-              <a class="button is-primary is-inverted">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Download</span>
+
+
+
+  <nav>
+    <section class="hero is-primary is-small">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item">
+                <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
               </a>
-            </span>
+              <span class="navbar-burger" data-target="navbarMenuHeroA">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenuHeroA" class="navbar-menu">
+              <div class="navbar-end">
+                <button class="button is-primary"><a class="navbar-item" href="/">Home</a></button>
+                <button class="button is-primary"><a class="navbar-item" href="/rankings">Rankings</a></button>
+                <button class="button is-primary"><a class="navbar-item" href="/rankings">Rankings</a></button>
+
+                {{#if logged_in}}
+                <button class="button is-primary"><a class="navbar-item" href="/profile">Profile</a></button>
+                <button class="button is-primary"><a class="button is-primary"
+                    href="https://github.com/JamesvanHoke/Rate-My-Pet" target="_blank">GitHub</a></button>
+                <button class="button is-primary navbar-item" id="logout">Logout</button>
+
+                {{else}}
+                <button class="button is-primary"><a class="navbar-item" href="/login">login</a></button>
+
+                {{/if}}
+
+                </span>
+              </div>
+            </div>
           </div>
+        </nav>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <p class="title">
+            {{!-- Rate My Pet! --}}
+            <a href="/">Rate My Pet!</a>
+          </p>
+          <p class="subtitle">
+            A website to judge the adorable nature of other people's pets
+          </p>
         </div>
       </div>
-    </nav>
-  </div>
 
-  <!-- Hero content: will be in the middle -->
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <p class="title">
-        {{!-- Rate My Pet! --}}
-        <a href="/">Rate My Pet!</a>
-      </p>
-      <p class="subtitle">
-        A website to judge the adorable nature of other people's pets
-      </p>
-    </div>
-  </div>
+      <!-- Hero footer: will stick at the bottom -->
+      {{!-- <div class="hero-foot">
+        <nav class="tabs">
+          <div class="container">
+            <ul>
+              <li class="is-active"><a>Overview</a></li>
+              <li><a>Modifiers</a></li>
+              <li><a>Grid</a></li>
+              <li><a>Elements</a></li>
+              <li><a>Components</a></li>
+              <li><a>Layout</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div> --}}
+    </section>
+    <!-- Conditionally render login or logout links -->
+  </nav>
+  </header>
+  <main class="container container-fluid mt-5">
+    <!-- Render the sub layout -->
+    {{{ body }}}
+  </main>
+  <footer>
 
-  <!-- Hero footer: will stick at the bottom -->
-  {{!-- <div class="hero-foot">
-    <nav class="tabs">
-      <div class="container">
-        <ul>
-          <li class="is-active"><a>Overview</a></li>
-          <li><a>Modifiers</a></li>
-          <li><a>Grid</a></li>
-          <li><a>Elements</a></li>
-          <li><a>Components</a></li>
-          <li><a>Layout</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div> --}}
-</section>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/profile">profile</a> |
-        <button class="no-button" id="logout">logout</button>
-        {{else}}
-        <a href="/login">login</a>
-        {{/if}}
-      </nav>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
-    </main>
-    <footer>
-      
-    </footer>
+  </footer>
   </div>
 
   <!-- Render script for logged in users only -->
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
-  {{#unless logged_in}}
-  <script src="/js/login.js"></script>
-  {{/unless}}
+  <script src="/js/navbar.js"></script>
 </body>
 
 </html>

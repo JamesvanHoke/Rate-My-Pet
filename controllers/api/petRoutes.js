@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const { Pet } = require('../../models');
-// const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
 
 // TODO: READD WITHAUTH
 // Route is /api/pets
 
 // Allows users to upload a pet
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
   try {
     /*
     req.body needs to contain this
@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
      */
     const newPet = await Pet.create({
       ...req.body,
+      owner_id: req.session.user_id,
     });
 
     res.status(200).json(newPet);
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
 });
 
 // Allows users to delete a pet
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try {
     const petData = await Pet.destroy({
       where: {
@@ -39,7 +40,9 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (!petData) {
-      res.status(404).json({ message: 'No pet that you own was found with this id!' });
+      res
+        .status(404)
+        .json({ message: 'No pet that you own was found with this id!' });
       return;
     }
 

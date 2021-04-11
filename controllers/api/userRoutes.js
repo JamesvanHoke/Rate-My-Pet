@@ -10,7 +10,6 @@ router.post('/', async (req, res) => {
     "Password": "string"
   }
   */
-  console.log('sign up backend', req.body);
   try {
     const userData = await User.create(req.body);
 
