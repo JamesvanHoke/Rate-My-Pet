@@ -33,37 +33,23 @@ const signupFormHandler = async (event) => {
 
   if (name && email && password) {
     console.log(name, email, password);
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    if (password.length > 7) {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    if (response.ok) {
-      document.location.replace('/profile');
+      if (response.ok) {
+        document.location.replace('/profile');
+      } else {
+        alert(response.statusText);
+      }
     } else {
-      alert(response.statusText);
+      alert('Password must be 8 characters or more');
     }
   }
 };
-
-const logout = async (event) => {
-  event.preventDefault();
-  const response = await fetch('/api/users/logout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  });
-
-  if (response.ok) {
-    document.location.replace('/');
-  } else {
-    alert(response.statusText);
-  }
-};
-
-document
-  .querySelector('.logout')
-  .addEventListener('submit', logout);
 
 document
   .querySelector('.login-form')
