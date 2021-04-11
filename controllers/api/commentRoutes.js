@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 // Route is /api/comments
 
 // Posts a comment.
-router.post('/:id', async (req, res) => {
+router.post('/:id', withAuth, async (req, res) => {
   try {
     /*
     req.body must contain this
@@ -28,25 +28,27 @@ router.post('/:id', async (req, res) => {
   }
 });
 
+
+// TODO: Future Dev implement a way to delete comments
 // Deletes a comment.
-router.delete('/:id', withAuth, async (req, res) => {
-  try {
-    const petData = await Comment.destroy({
-      where: {
-        id: req.params.id,
-        commenter_id: req.session.user_id,
-      },
-    });
+// router.delete('/:id', withAuth, async (req, res) => {
+//   try {
+//     const petData = await Comment.destroy({
+//       where: {
+//         id: req.params.id,
+//         commenter_id: req.session.user_id,
+//       },
+//     });
 
-    if (!petData) {
-      res.status(404).json({ message: 'No comment found with this id.' });
-      return;
-    }
+//     if (!petData) {
+//       res.status(404).json({ message: 'No comment found with this id.' });
+//       return;
+//     }
 
-    res.status(200).json(petData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.status(200).json(petData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

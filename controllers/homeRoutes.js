@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Pet, Comment } = require('../models');
-// const withAuth = require('../utils/auth');
+const { Pet, Comment, User } = require('../models');
+const withAuth = require('../utils/auth');
 
 // this is the / route
 
@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
       order: [['updatedAt', 'DESC']],
       limit: 1,
     });
+
     const recentlyCreatedPet = await Pet.findAll({
       order: [['createdAt', 'DESC']],
       limit: 1,
@@ -109,6 +110,7 @@ router.get('/upload', (req, res) => {
   }
 });
 
+// Unneeded? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // Our catchall that sends people to homepage.
 // router.get('*', (req, res) => {
 //   try {
@@ -118,25 +120,24 @@ router.get('/upload', (req, res) => {
 //   }
 // });
 
-// Unneeded? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-// router.get('/profile', withAuth, async (req, res) => {
-//   try {
-//     // Find the logged in user based on the session ID
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Pet }],
-//     });
+router.get('/profile', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
 
-//     const user = userData.get({ plain: true });
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{model: Pet}]
+    });
 
-//     res.render('profile', {
-//       ...user,
-//       logged_in: true,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    // const user = userData.map((user) => user.toJSON());
+    const user = userData.get({ plain: true });
+
+    // res.send(user);
+    res.render('profile', { user, logged_in: true });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
