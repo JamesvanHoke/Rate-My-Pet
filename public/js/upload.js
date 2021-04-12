@@ -1,34 +1,66 @@
-const clientId = '62cc0bc341a2930';
-// Client Secret: f29f9ffe8139ee7a1f05d91b1542d2f9af25f4e0
+// const clientId = '011443cc50c82b0';
+// Client Secret: 67e783ea1c8a78f7192417b88ec587a1f17bc3bc
 
-const imageUpload = () => {
-  var image = document.querySelector('#Image');
-  var apiUrl = 'https://api.imgur.com/3/image';
-  var apiKey = clientId;
+// const upload = document.querySelector('#image');
 
-  var settings = {
-    async: false,
-    crossDomain: true,
-    processData: false,
-    contentType: false,
-    type: 'POST',
-    url: apiUrl,
-    headers: {
-      Authorization: 'Client-ID ' + apiKey,
-      Accept: 'application/json',
-    },
-    mimeType: 'multipart/form-data',
-  };
+// upload.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   // console.log('check 1');
 
-  var formData = new FormData();
-  formData.append('image', image);
-  settings.data = formData;
+//   const fileInput = document.querySelector('#input');
+//   const imageFile = fileInput.files[0];
+//   console.log(fileInput);
+//   console.log(imageFile);
+//   // console.log('check 2');
 
-  // Response contains stringified JSON
-  // Image URL available at response.data.link
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-};
+//   const formData = new FormData();
+//   formData.append('image', imageFile);
 
-document.querySelector('#uploadButton').addEventListener('submit', imageUpload);
+//   // console.log(formData);
+//   // console.log('check 3');
+//   fetch('https://api.imgur.com/3/image/', {
+//     method: 'POST',
+//     headers: {
+//       Authorization: `Client-ID ${clientId}`,
+//     },
+//     body: formData,
+//   })
+//     .then((data) => data.json())
+//     .then((data) => console.log(data));
+
+//   // .then((response) => {
+//   //   if (response.ok) {
+//   //     // console.log('check 4');
+//   //     alert('Image uploaded to album');
+//   //   }
+//   // })
+//   // .catch((error) => {
+//   //   // console.log('check 5');
+//   //   console.error(JSON.stringify(error));
+//   //   alert('Upload failed: ' + error);
+//   // });
+// });
+
+const file = document.querySelector('#file');
+const img = document.querySelector('#img');
+
+file.addEventListener('change', async (e) => {
+  try {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    console.log(e.target.files[0]);
+    await fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Client-ID 62cc0bc341a2930',
+      },
+      body: formData,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        img.src = data.data.link;
+      });
+  } catch (err) {
+    console.log(err);
+  }
+});
