@@ -1,9 +1,11 @@
-const randomize = () => {
-  const len = document.querySelector('#randomBtn').getAttribute('data-id');
+let randomizegallery = (event) => {
+  const len = event.target.getAttribute('data-id');
 
-  const random = Math.floor(Math.random() * parseInt(len));
+  const random = Math.floor(Math.random() * parseInt(len) +1);
 
   document.location.replace(`/gallery/${random}`);
 };
 
-document.querySelector('#randomBtn').addEventListener('click', randomize);
+document.querySelectorAll('.randomBtn').forEach((item) => {
+  item.addEventListener('click', randomizegallery);
+});
