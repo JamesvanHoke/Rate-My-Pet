@@ -1,35 +1,51 @@
 const router = require('express').Router();
-// const { Comment, User, Pet } = require('../../models');
-// const withAuth = require('../../utils/auth');
+const { Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-// router.post('/', withAuth, async (req, res) => {
-//   try {
-//     const newProject = await Project.create({
-//       ...req.body,
-//       user_id: req.session.user_id,
-//     });
+// Route is /api/comments
 
-//     res.status(200).json(newProject);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+// Posts a comment.
+router.post('/:id', withAuth, async (req, res) => {
+  try {
+    /*
+    req.body must contain this
+    {
+        comment: "String"
+    }
+     */
 
+    const newComment = await Comment.create({
+      ...req.body,
+      //Pulls the user id off the of the session ID
+      commenter_id: req.session.user_id,
+      //Pulls the pet's id off the req url sent and converts it into a number
+      pet_id: parseInt(req.params.id),
+    });
+
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+
+// TODO: Future Dev implement a way to delete comments
+// Deletes a comment.
 // router.delete('/:id', withAuth, async (req, res) => {
 //   try {
-//     const projectData = await Project.destroy({
+//     const petData = await Comment.destroy({
 //       where: {
 //         id: req.params.id,
-//         user_id: req.session.user_id,
+//         commenter_id: req.session.user_id,
 //       },
 //     });
 
-//     if (!projectData) {
-//       res.status(404).json({ message: 'No project found with this id!' });
+//     if (!petData) {
+//       res.status(404).json({ message: 'No comment found with this id.' });
 //       return;
 //     }
 
-//     res.status(200).json(projectData);
+//     res.status(200).json(petData);
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }

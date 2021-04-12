@@ -1,38 +1,55 @@
 const router = require('express').Router();
-// const { Comment, User, Pet } = require('../../models');
-// const withAuth = require('../../utils/auth');
+const { Pet } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-// router.post('/', withAuth, async (req, res) => {
-//   try {
-//     const newProject = await Project.create({
-//       ...req.body,
-//       user_id: req.session.user_id,
-//     });
+// TODO: READD WITHAUTH
+// Route is /api/pets
 
-//     res.status(200).json(newProject);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+// Allows users to upload a pet
+router.post('/', withAuth, async (req, res) => {
+  try {
+    /*
+    req.body needs to contain this
+    {
+        "pet_name": "string",
+        "Pet_description": "string",
+        "pet_image": "string",
+        "owner_name": "string"
+        "owner_id": "integer"
+    }
+     */
+    const newPet = await Pet.create({
+      ...req.body,
+      owner_id: req.session.user_id,
+    });
 
-// router.delete('/:id', withAuth, async (req, res) => {
-//   try {
-//     const projectData = await Project.destroy({
-//       where: {
-//         id: req.params.id,
-//         user_id: req.session.user_id,
-//       },
-//     });
+    res.status(200).json(newPet);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
-//     if (!projectData) {
-//       res.status(404).json({ message: 'No project found with this id!' });
-//       return;
-//     }
+// Allows users to delete a pet
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const petData = await Pet.destroy({
+      where: {
+        id: req.params.id,
+        owner_id: req.session.user_id,
+      },
+    });
 
-//     res.status(200).json(projectData);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    if (!petData) {
+      res
+        .status(404)
+        .json({ message: 'No pet that you own was found with this id!' });
+      return;
+    }
+
+    res.status(200).json(petData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

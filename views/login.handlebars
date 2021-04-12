@@ -1,55 +1,57 @@
 <div class="columns">
   <div class="column">
-    
 
-<form class="box">
-  <div class="field">
-      <h1 class="is-size-1">Returning User</h1>
-    <label class="label">Email</label>
-    <div class="control">
-      <input class="input" type="email" placeholder="e.g. alex@example.com">
-    </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Password</label>
-    <div class="control">
-      <input class="input" type="password" placeholder="********">
-    </div>
-  </div>
+    <form class="box login-form">
+      <div class="field">
+        <h1 class="is-size-1">Returning User</h1>
+        <label class="label">Email</label>
+        <div class="control">
+          <input id="email-login" class="input" type="email" placeholder="e.g. alex@example.com">
+        </div>
+      </div>
 
-  <button class="button is-primary">Sign in</button>
-</form>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input id="password-login" class="input" type="password" placeholder="********">
+        </div>
+      </div>
+
+      <button id="signInBtn" class="button is-primary">Sign in</button>
+    </form>
 
   </div>
   <div class="column">
 
 
-<form class="box">
-  <div class="field">
-      <h1 class="is-size-1">New User</h1>
-    <label class="label">Name</label>
-    <div class="control">
-      <input class="input" type="name" placeholder="e.g. Alex Smith">
-    </div>
-  </div>
+    <form class="box signup-form">
+      <div class="field">
+        <h1 class="is-size-1">New User</h1>
+        <label class="label">Name</label>
+        <div class="control">
+          <input id="name-signup" class="input" type="text" placeholder="e.g. Alex Smith">
+        </div>
+      </div>
 
-  <div class="field">
-    <label class="label">Email</label>
-    <div class="control">
-      <input class="input" type="email" placeholder="********">
-    </div>
-  </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input id="email-signup" class="input" type="text" placeholder="********">
+        </div>
+      </div>
 
-    <div class="field">
-    <label class="label">Password</label>
-    <div class="control">
-      <input class="input" type="password" placeholder="********">
-    </div>
-  </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input id="password-signup" class="input" type="password" placeholder="********">
+        </div>
+      </div>
 
-  <button class="button is-primary">Sign Up</button>
-</form>
+      <button class="button is-primary">Sign Up</button>
+    </form>
 
   </div>
 </div>
+
+<script src="/js/login.js"></script>

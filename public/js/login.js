@@ -4,7 +4,7 @@ const loginFormHandler = async (event) => {
   // Collect values from the login form
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
-
+  console.log(email, password);
   if (email && password) {
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
@@ -14,9 +14,11 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      console.log('it worked');
       // If successful, redirect the browser to the profile page
-      document.location.replace('/profile');
+      document.location.replace('/');
     } else {
+      console.log(response);
       alert(response.statusText);
     }
   }
@@ -30,16 +32,21 @@ const signupFormHandler = async (event) => {
   const password = document.querySelector('#password-signup').value.trim();
 
   if (name && email && password) {
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.log(name, email, password);
+    if (password.length > 7) {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    if (response.ok) {
-      document.location.replace('/profile');
+      if (response.ok) {
+        document.location.replace('/profile');
+      } else {
+        alert(response.statusText);
+      }
     } else {
-      alert(response.statusText);
+      alert('Password must be 8 characters or more');
     }
   }
 };
