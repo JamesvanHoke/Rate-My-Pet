@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Pet } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-
 router.put('/', withAuth, async (req, res) => {
   try {
     const updateScore = await Pet.update(req.body, {
@@ -15,3 +14,5 @@ router.put('/', withAuth, async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+module.exports = router;
