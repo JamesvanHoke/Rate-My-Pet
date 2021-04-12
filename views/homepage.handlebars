@@ -1,133 +1,83 @@
 <div class="columns">
   <div class="column is-two-thirds">
-    First column
+    {{#each rated_pet as |rated|}}
     <div class="card">
-      <h1 class="is-size-2 px-4 py-3">Tiger Lilly</h1>
+      <h1 class="is-size-2 px-4 py-3">Recently Rated: {{pet_name}}</h1>
 
       <div class="card-image">
-        <figure class="image is-4by3">
-          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        <figure class="image is-4x3">
+          <img src="{{pet_image}}" alt="Pet Image">
         </figure>
       </div>
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
           </div>
           <div class="media-content">
-            <p class="title is-4">{{{pet_name}}}</p>
-            <p class="subtitle is-6">{{{owner_name}}}</p>
+            <p class="title is-4">{{pet_name}}</p>
+            <p class="subtitle is-6">Owner: {{owner_name}}</p>
           </div>
         </div>
 
         <div class="content">
-          {{{pet_description}}} <a>@bulmaio</a>.
-          <a href="#">#css</a> <a href="#">#responsive</a>
-          <br>
+          {{pet_description}}
           <div class="buttons has-addons is-centered">
-            <button class="button">Yes</button>
-            <button class="button">Maybe</button>
-            <button class="button">No</button>
+            <button data-id="{{id}}" class="increment button is-primary">⬆</button>
+            <button class="score button is-light">{{pet_score}}</button>
+            <button data-id="{{id}}" class="decrement button is-danger">⬇</button>
           </div>
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
         </div>
       </div>
     </div>
-
+    {{/each}}
+    {{#each created_pet as |created|}}
     <div class="card">
+      <h1 class="is-size-2 px-4 py-3">Recently Uploaded: {{pet_name}}</h1>
       <div class="card-image">
-        <figure class="image is-4by3">
-          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        <figure class="image is-square">
+          <img src="{{pet_image}}" alt="Pet image">
         </figure>
       </div>
       <div class="card-content">
         <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
-          </div>
           <div class="media-content">
-            <p class="title is-4">John Smith</p>
-            <p class="subtitle is-6">@johnsmith</p>
+            <p class="title is-4">{{pet_name}}</p>
+            <p class="subtitle is-6">Owner: {{owner_name}}</p>
           </div>
         </div>
 
         <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-          <a href="#">#css</a> <a href="#">#responsive</a>
-          <br>
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          {{pet_description}}
+        </div>
+        <div class="buttons has-addons is-centered">
+          <button data-id="{{id}}" class="increment button is-primary">⬆</button>
+          <button class="score button is-light">{{pet_score}}</button>
+          <button data-id="{{id}}" class="decrement button is-danger">⬇</button>
         </div>
       </div>
     </div>
+    {{/each}}
   </div>
   <div class="column">
-    Second column
     <div class="card">
       <h1 class="is-size-2 has-text-centered py-5">How it Works</h1>
       <div class="columns is-mobile">
-        <div class="column is-one-third">
-          <figure class="image is-128x128 px-4">
-            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-          </figure>
-        </div>
         <div class="column">
-          <p class="bd-notification is-two-thirds">We all love our animals, but we thought it would be fun to add a
+          <p class="bd-notification px-2">We all love our animals, but we thought it would be fun to add a
             little
             competition to the game. Let's see whose pet can climb to the top of our rankings!</p>
         </div>
 
       </div>
-      <h1 class="is-size-2 has-text-centered py-5">Vote on a Random Pet</h1>
-    <button class="button is-medium">Vote Here</button>
-<br><br>
- <div class="columns is-mobile">
-      <div class="column is-one-third">
-          <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
-      </div>
-      <div class="column is-one-third">
-         <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
+      <div class="has-text-centered">
+
+        <h1 class="is-size-2 has-text-centered py-5">Rate A Random Pet</h1>
+
+        <button data-id={{allpet.length}} id="randomBtn" class="button is-medium">Random</button>
+        <br>
+        <br>
       </div>
     </div>
-
-
-<h1 class="is-size-2 has-text-centered py-5">Learn About Our Developers</h1>
-
-  </div>
-    </div>
-</div>
-<!-- Loop over each object in the projects array -->
-{{!-- {{#each projects as |project| }}
-<div class="row mb-4 project">
-  <div class="col-md-5">
-    <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-      <br>
-      {{{get_emoji}}}
-      <a href="/project/{{project.id}}">{{project.name}}</a>
-    </h2>
-    <p>
-
-    </p>
-    <p>Created by {{project.user.name}} on {{format_date project.date_created}}</p>
-  </div>
-  <div class="col-md-7">
-    <p>
-      {{project.description}}
-    </p>
   </div>
 </div>
-{{/each}} --}}
+<script src="/js/gallery.js"></script>
