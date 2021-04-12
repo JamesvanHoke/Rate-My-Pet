@@ -2,7 +2,7 @@
   <div class="column is-two-thirds">
     First column
     <div class="card">
-      <h1 class="is-size-2 px-4 py-3">Tiger Lilly</h1>
+      <h1 class="is-size-2 px-4 py-3">Most Recently Ranked Pet</h1>
 
       <div class="card-image">
         <figure class="image is-4by3">
@@ -18,7 +18,7 @@
           </div>
           <div class="media-content">
             <p class="title is-4">{{{pet_name}}}</p>
-            <p class="subtitle is-6">{{{owner_name}}}</p>
+            <p class="subtitle is-6">Uploaded by:{{{owner_name}}}</p>
           </div>
         </div>
 
@@ -35,8 +35,8 @@
         </div>
       </div>
     </div>
-
     <div class="card">
+      <h1 class="is-size-2 px-4 py-3">Newest Pet</h1>
       <div class="card-image">
         <figure class="image is-4by3">
           <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
@@ -83,31 +83,32 @@
 
       </div>
       <h1 class="is-size-2 has-text-centered py-5">Vote on a Random Pet</h1>
-    <button class="button is-medium">Vote Here</button>
-<br><br>
- <div class="columns is-mobile">
-      <div class="column is-one-third">
+      <button class="button is-centered">Medium</button>
+      <br><br>
+      <h1 class="is-size-2 has-text-centered py-5">Learn About Our Developers</h1>
+      <div class="columns is-mobile">
+        <div class="column is-one-third">
           <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+          </figure>
+        </div>
+        <div class="column is-one-third">
+          <figure class="image is-128x128">
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+          </figure>
+        </div>
+        <div class="column is-one-third ">
+          <figure class="image is-128x128">
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+          </figure>
+          <br> <br> <br>
+        </div>
       </div>
-      <div class="column is-one-third">
-        <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
-      </div>
-      <div class="column is-one-third">
-         <figure class="image is-128x128">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-  </figure>
-      </div>
+
+
+
     </div>
-
-
-<h1 class="is-size-2 has-text-centered py-5">Learn About Our Developers</h1>
-
   </div>
-    </div>
 </div>
 <!-- Loop over each object in the projects array -->
 {{!-- {{#each projects as |project| }}
