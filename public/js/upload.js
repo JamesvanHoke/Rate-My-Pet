@@ -57,7 +57,7 @@ file.addEventListener('change', async (e) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        file.dataImage = data.data.link;
+        file.setAttribute(dataImage, data.data.link);
       });
   } catch (err) {
     console.log(err);
