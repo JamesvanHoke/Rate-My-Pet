@@ -18,6 +18,9 @@ router.get('/', async (req, res) => {
       limit: 1,
     });
 
+    const allpets = await Pet.findAll();
+    const allpet = allpets.map((pet) => pet.get({ plain: true }));
+
     // Serialize data so the template can read it
     const rated_pet = recentlyRatedPet.map((ratedPet) =>
       ratedPet.get({ plain: true })
@@ -31,6 +34,7 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
       rated_pet,
       created_pet,
+      allpet,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
