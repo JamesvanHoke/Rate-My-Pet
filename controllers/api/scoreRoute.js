@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Pet } = require('../../models');
-const withAuth = require('../../utils/auth');
+// const withAuth = require('../../utils/auth');
 //withAuth was taken out
 router.get('/', (req, res) => {
   Pet.findAll().then((burrito) => {
