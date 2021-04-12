@@ -5,7 +5,7 @@ const newPetHandler = async (event) => {
   const pet_name = document.querySelector('#petName').value.trim();
   const pet_description = document.querySelector('#petDesc').value.trim();
   const owner_name = document.querySelector('#ownerName').value.trim();
-  const pet_image = document.querySelector('#file').getAttribute('dataImage');
+  const pet_image = document.querySelector('#img').getAttribute('src');
 
   if (pet_name && pet_description && owner_name && pet_image) {
     const response = await fetch(`/api/pets`, {

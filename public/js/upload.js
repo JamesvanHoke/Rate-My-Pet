@@ -42,6 +42,7 @@
 // });
 
 const file = document.querySelector('#file');
+const img = document.querySelector('#img');
 
 file.addEventListener('change', async (e) => {
   try {
@@ -57,7 +58,7 @@ file.addEventListener('change', async (e) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        file.setAttribute(dataImage, data.data.link);
+        img.src = data.data.link;
       });
   } catch (err) {
     console.log(err);
