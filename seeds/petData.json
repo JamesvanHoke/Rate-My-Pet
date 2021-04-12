@@ -7,30 +7,30 @@
       "owner_id": 1
     },
     {
-        "pet_name": "Jaz",
-        "pet_description": "Test Description",
+        "pet_name": "Jazz",
+        "pet_description": "Jazz is a mischievous cat who loves to eat cardboard",
         "pet_image": "https://i.imgur.com/yjgnhB1.jpg",
         "owner_name": "James",
         "owner_id": 1
     },
     {
         "pet_name": "Saff",
-        "pet_description": "TestDesc",
+        "pet_description": "Saff is a timid cat who just wants to be loved",
         "pet_image": "https://i.imgur.com/Ow53MFz.jpg",
         "owner_name": "James",
         "owner_id": 1
     },
     {
         "pet_name": "spot",
-        "pet_description": "TestDesc",
+        "pet_description": "Spot has a spot, probably.",
         "pet_image": "https://i.imgur.com/a5BiUf7.jpg",
         "owner_name": "John",
         "owner_id": 2
     },
     {
         "pet_name": "Sir-Meows-A-Lot",
-        "pet_description": "TestDesc",
-        "pet_image": "https://i.imgur.com/ba5iprT.jpg",
+        "pet_description": "Meows. A lot.",
+        "pet_image": "https://i.gyazo.com/b410362d0f088fc6fcaa5d6ff263ea6d.png",
         "owner_name": "Kate",
         "owner_id": 3
     }

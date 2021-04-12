@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
     res.json(burrito);
   });
 });
-
 router.put('/inc/:id', (req, res) => {
   Pet.increment('pet_score', {
     where: {
@@ -37,6 +36,7 @@ router.put('/dec/:id', (req, res) => {
       res.json(err);
     });
 });
+
 
 module.exports = router;
 // when you click on the button for pet, its the route /api/scores/:id

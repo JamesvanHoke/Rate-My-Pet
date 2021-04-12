@@ -4,9 +4,7 @@ const withAuth = require('../utils/auth');
 
 // this is the / route
 
-// TODO: ADD WITHAUTH TO ROUTES
-
-// Landing Page
+// Landing Page/Home Page
 router.get('/', async (req, res) => {
   try {
     // Most recent updated/created Pet
@@ -20,15 +18,23 @@ router.get('/', async (req, res) => {
       limit: 1,
     });
 
+    const allpets = await Pet.findAll();
+    const allpet = allpets.map((pet) => pet.get({ plain: true }));
+
     // Serialize data so the template can read it
-    const recRatedPet = recentlyRatedPet.map((pet) => pet.get({ plain: true }));
-    const recCreatedPet = recentlyCreatedPet.map((pet) =>
-      pet.get({ plain: true })
+    const rated_pet = recentlyRatedPet.map((ratedPet) =>
+      ratedPet.get({ plain: true })
+    );
+
+    const created_pet = recentlyCreatedPet.map((createdPet) =>
+      createdPet.get({ plain: true })
     );
 
     // Pass serialized data and session flag into template
     res.render('homepage', {
-      recRatedPet, recCreatedPet,
+      rated_pet,
+      created_pet,
+      allpet,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -54,7 +60,8 @@ router.get('/gallery/:id', async (req, res) => {
     // sends the info
     // res.send(galleryData);
     res.render('solo', {
-      soloPet, soloPetComm,
+      soloPet,
+      soloPetComm,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -113,14 +120,13 @@ router.get('/upload', (req, res) => {
 //   }
 // });
 
-
 router.get('/profile', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
 
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{model: Pet}]
+      include: [{ model: Pet }],
     });
 
     // const user = userData.map((user) => user.toJSON());
