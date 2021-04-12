@@ -3,14 +3,10 @@
 const incrementHandler = async (event) => {
   event.preventDefault();
 
-  const id = event.target.getAttribute('data-id');
-  console.log(id);
-  const pet_score = event.target.getAttribute('data-score');
-  console.log(pet_score);
+  let id = event.target.getAttribute('data-id');
 
-  const response = await fetch(`/api/inc/${id}`, {
+  const response = await fetch(`/api/scores/inc/${id}`, {
     method: 'put',
-    body: JSON.stringify({ pet_score }),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -27,20 +23,16 @@ const decrementHandler = async (event) => {
   event.preventDefault();
 
   const id = event.target.getAttribute('data-id');
-  const pet_score = event.target.getAttribute('#data-score');
 
-  console.log(id, pet_score);
-
-  const response = await fetch(`/api/score/`, {
+  const response = await fetch(`/api/scores/dec/${id}`, {
     method: 'put',
-    body: JSON.stringify({ id, pet_score }),
     headers: {
       'Content-Type': 'application/json',
     },
   });
 
   if (response.ok) {
-    document.location.replace('/profile');
+    document.location.reload();
   } else {
     alert('Failed to down vote');
   }
