@@ -22,9 +22,9 @@
         <div class="content">
           {{pet_description}}
           <div class="buttons has-addons is-centered">
-            <button data-id="{{id}}" class="increment button is-primary">⬆</button>
+            <button data-id="{{id}}" data-score="{{pet_score}}" class="increment button is-primary">⬆</button>
             <button class="score button is-light">{{pet_score}}</button>
-            <button data-id="{{id}}" class="decrement button is-danger">⬇</button>
+            <button data-id="{{id}}" data-score="{{pet_score}}" class="decrement button is-danger">⬇</button>
           </div>
         </div>
       </div>
@@ -50,9 +50,9 @@
           {{pet_description}}
         </div>
         <div class="buttons has-addons is-centered">
-          <button data-id="{{id}}" class="increment button is-primary">⬆</button>
+          <button data-id="{{id}}" data-score="{{pet_score}}" class="increment button is-primary">⬆</button>
           <button class="score button is-light">{{pet_score}}</button>
-          <button data-id="{{id}}" class="decrement button is-danger">⬇</button>
+          <button data-id="{{id}}" data-score="{{pet_score}}" class="decrement button is-danger">⬇</button>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
       </div>
       <div class="has-text-centered">
         <h1 class="is-size-2 has-text-centered py-5">Rate A Random Pet</h1>
-        <button data-id={{allpet.length}} id="randomBtn" class="button is-medium">Random</button>
+        <button data-id={{allpet.length}} class="button is-medium randomBtn">Random</button>
         <br>
         <br>
          <h1 class="is-size-2 has-text-centered py-5">See the Top 5 Pets!</h1>
@@ -82,3 +82,4 @@
   </div>
 </div>
 <script src="/js/gallery.js"></script>
+<script src="/js/score.js"></script>
