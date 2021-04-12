@@ -1,46 +1,21 @@
 const newPetHandler = async (event) => {
   event.preventDefault();
 
-  const pet = document.querySelector('#pet_name').value.trim();
-  const description = document.querySelector('#pet_description').value.trim();
-  const owner = document.querySelector('#owner_name').value.trim();
+  console.log("I'm working");
+  const pet_name = document.querySelector('#petName').value.trim();
+  const pet_description = document.querySelector('#petDesc').value.trim();
+  const owner_name = document.querySelector('#ownerName').value.trim();
+  const pet_image = document.querySelector('#file').getAttribute('dataImage');
 
-  const data = { username: 'example' };
-
-  fetch('/api/pet', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
-  fetch('/api/users', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
-  if (pet && description && owner) {
+  if (pet_name && pet_description && owner_name && pet_image) {
     const response = await fetch(`/api/pets`, {
       method: 'POST',
-      body: JSON.stringify({ pet, description, owner }),
+      body: JSON.stringify({
+        pet_name,
+        pet_description,
+        owner_name,
+        pet_image,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,9 +26,9 @@ const newPetHandler = async (event) => {
     } else {
       alert('Failed to upload pet');
     }
+  } else {
+    alert('Please make sure to fill all fields before submitting.');
   }
 };
 
-document.querySelector('.new_pet').addEventListener('submit', newPetHandler);
-
-document.querySelector('.pet_name');
+document.querySelector('#uploadBtn').addEventListener('click', newPetHandler);
