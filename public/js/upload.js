@@ -5,6 +5,7 @@ file.addEventListener('change', async (e) => {
   try {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
+    console.log(e.target.files[0]);
     await fetch('https://api.imgur.com/3/image', {
       method: 'POST',
       headers: {
@@ -17,6 +18,6 @@ file.addEventListener('change', async (e) => {
         img.src = data.data.link;
       });
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 });
